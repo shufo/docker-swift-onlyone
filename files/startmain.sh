@@ -56,7 +56,7 @@ fi
 
 if [ ! -z "${SWIFT_SET_PASSWORDS}" ]; then
 	echo "Setting passwords in /etc/swift/proxy-server.conf"
-	PASS=`pwgen 12 1`
+	PASS=${SWIFT_SET_PASSWORDS:-`pwgen 12 1`}
 	sed -i -e "s/user_admin_admin = admin .admin .reseller_admin/user_admin_admin = $PASS .admin .reseller_admin/g" /etc/swift/proxy-server.conf
 	sed -i -e "s/user_test_tester = testing .admin/user_test_tester = $PASS .admin/g" /etc/swift/proxy-server.conf
 	sed -i -e "s/user_test2_tester2 = testing2 .admin/user_test2_tester2 = $PASS .admin/g" /etc/swift/proxy-server.conf
