@@ -89,6 +89,12 @@ swift.txt
 
 That's it!
 
+## Environment
+
+| key                 | value                   | 
+|--------------------:|------------------------:|
+|`SWIFT_SET_PASSWORDS`| default: Generate 12 random characters on every boot.|
+
 ## Todo
 
 * SELINUX doesn't support btrfs?
