@@ -1,0 +1,59 @@
+api:
+  build: example
+  environment:
+    - "SERVICE_NAME=api_v1"
+    - "SERVICE_TAGS=api_v1"
+  links:
+     - swift:swift
+     - redis:redis
+  dns:
+    - "172.17.8.101"
+    - "8.8.8.8"
+  restart: always
+
+swift:
+  build: .
+  volumes:
+    - ${SWIFT_MOUNT_DIR}:/srv
+  environment:
+    SWIFT_USER: "admin:admin"
+    SWIFT_SET_PASSWORDS: foobar
+
+redis:
+  image: redis:latest
+
+consul:
+  command: -server -bootstrap -data-dir ./data -ui-dir /ui
+  image: progrium/consul:latest
+  ports:
+    - "8300"
+    - "8400"
+    - "8500"
+    - "8600/udp"
+  environment:
+    CONSUL_SERVER_ADDRESS:
+    - "affinity:container!=nodes_consul_*"
+    - "SERVICE_TAGS=consul"
+  net: "host"
+  restart: always
+
+registrator:
+  command: -internal consul://127.0.0.1:8500
+  image: sttts/registrator:latest
+  volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock"
+  environment:
+    - "affinity:container!=nodes_registrator_*"
+    - "SERVICE_TAGS=registrator"
+  net: "host"
+  restart: always
+
+nginx:
+  build: nginx
+  environment:
+    - "affinity:container!=nodes_nginx_*"
+    - "CONSUL_PORT_8500_TCP_ADDR=127.0.0.1"
+    - "SERVICE_TAGS=nginx"
+  net: "host"
+  restart: always
+
