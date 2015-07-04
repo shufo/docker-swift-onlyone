@@ -1,1 +1,47 @@
-*.DS_Store
+# temp files from editors
+*~
+*.bak
+.DS_Store
+.buildpath
+.project
+.settings
+*.tmproj
+build
+.idea
+nbproject/
+
+# hidden files created by Windows
+Thumbs.db
+
+# composer
+vendor
+composer.lock
+
+# ansible
+ansible/bin/*
+ansible/roles
+desktop.ini
+
+# vagrant
+.vagrant
+
+# direnv
+.envrc
+
+# the composer package lock file and install directory
+/example/composer.lock
+/example/fuel/vendor
+
+# any of the fuel packages installed by default
+/example/docs/
+/example/fuel/core/
+/example/fuel/packages/auth/
+/example/fuel/packages/email/
+/example/fuel/packages/oil/
+/example/fuel/packages/orm/
+/example/fuel/packages/parser/
+
+# dynamically generated files
+/example/fuel/app/logs/*/*/*
+/example/fuel/app/cache/*/*
+/example/fuel/app/config/crypt.php
