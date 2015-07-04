@@ -89,11 +89,36 @@ swift.txt
 
 That's it!
 
-## Environment
+## Environment variable
 
 | key                 | value                   | 
 |--------------------:|------------------------:|
 |`SWIFT_SET_PASSWORDS`| default: Generate 12 random characters on every boot.|
+
+## Example
+
+### Requirements
+
+- Vagrant (Tested on 1.7.2)
+- Ansible (Tested on 1.9.0)
+
+### Installation
+
+- Setup vagrant virtual machine and docker environment on the VM.
+
+```
+make install
+```
+
+- Post image via example php application.
+
+```
+curl -X PUT -T example.jpg http://172.17.8.101/api/v1/image/foo/bar
+```
+
+then open http://172.17.8.101/api/v1/image/foo/bar . You can see a image uploaded in above process.
+
+`foo/bar` is replaceable to any path.
 
 ## Todo
 
